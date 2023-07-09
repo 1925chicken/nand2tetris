@@ -1,0 +1,10 @@
+/** And gate out: in1 and in2*/
+
+CHIP And {
+    IN a,b;
+    OUT out;
+    
+    PARTS:
+        Nand(a = a,b = b,out = o);
+	Not(in = o,out = out);
+}
