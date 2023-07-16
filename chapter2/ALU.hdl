@@ -1,0 +1,15 @@
+CHIP ALU {
+    IN x[16],y[16],zx,nx,zy,ny,f,no;
+    OUT out[16],zr,ng;
+
+    PARTS:
+        Mux16(a = x,b[0..15] = false,sel = zx,out = x0);
+	And16(a = x,b = x0,out = x1); // x0が0になっていれば問答無用で0,そうでなければx
+	Not16(in = x1,out = notx1);
+	Mux16(a = x1,b = notx1,sel=nx,out=x2);//nxが1であるならx1が反転されるそうでないならx1
+        
+	Mux16(a = y,b[0..15] = false,sel=zy,out = y0);
+	And16(a = y,b = y0,out = y1);
+	Not16(in = y1,out = noty1);
+	Mux16(a = y1,b = noty1,sel = ny,out = y2);
+}
