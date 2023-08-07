@@ -4,6 +4,7 @@ use std::io::prelude::*;
 use std::io::Bytes;
 use std::path::Path;
 
+
 #[derive(Eq,PartialEq)]
 enum CommandType {
     ACommand,
@@ -18,7 +19,7 @@ pub struct Parser {
 
 impl Parser {
 
-    fn new(file_name: String) -> Self {
+    pub fn new(file_name: String) -> Self {
         let path = Path::new(&file_name);
         let display = path.display();
         let input_file = match File::open(&path) {
