@@ -11,13 +11,14 @@ enum CommandType {
     LCommand,
 }
 
-struct Parser {
+pub struct Parser {
     input_file: File,
     output_file: File,
 }
 
 impl Parser {
-    fn new(&self, file_name: String) -> Self {
+
+    fn new(file_name: String) -> Self {
         let path = Path::new(&file_name);
         let display = path.display();
         let input_file = match File::open(&path) {
@@ -25,7 +26,10 @@ impl Parser {
             Ok(file) => file,
         };
         let new_file_name = file_name.split('.').next().unwrap().to_string();
-        let output_file = self.create_file(&new_file_name);
+        let output_file = match File::create("assembler.asm".to_owned()) {
+            Err(why) => panic!("couldn't create file : {}", why),
+            Ok(file) => file,
+        };
         Self {
             input_file,
             output_file,
